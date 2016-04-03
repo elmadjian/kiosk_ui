@@ -1,18 +1,41 @@
 import QtQuick 2.5
-import QtQuick.Window 2.2
 
-Window {
-    visible: true
+Rectangle {
+    id: base
+    width: 600
+    height: 800
+    color: "white"
 
-    MouseArea {
+    Column {
         anchors.fill: parent
-        onClicked: {
-            Qt.quit();
+
+        Rectangle {
+            width: parent.width
+            height: parent.height/18
+            color: "#E35630"
+
+            Text {
+                text: "Super Kiosk"
+                anchors.centerIn: parent
+                font.family: "Deja Vu Sans"
+                font.pixelSize: parent.height - parent.height/2
+                font.bold: true
+                color: "white"
+            }
+        }
+
+        Rectangle {
+            width: parent.width
+            height: parent.height/6
+            color: "#FA6900"
+
+            Rectangle {
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: parent.height/20
+                color: "#EA5900"
+            }
         }
     }
 
-    Text {
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
-    }
 }
