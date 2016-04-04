@@ -41,7 +41,11 @@ ScrollView {
                 anchors.bottom: parent.bottom
                 anchors.margins: 20
                 text: " Ver sessões "
-                onClicked: base.state = "screen2"
+                onClicked: {
+                    base.state = "screen2";
+                    screen2.movieTitle = "<h1>Jar Jar's Speech</h1>"
+                }
+
             }
         }
         Rectangle {
@@ -78,6 +82,10 @@ ScrollView {
                 anchors.bottom: parent.bottom
                 anchors.margins: 20
                 text: " Ver sessões "
+                onClicked: {
+                    base.state = "screen2";
+                    screen2.movieTitle = "<h1>Indiana Jones and the Phantom Menace</h1>"
+                }
             }
         }
         Rectangle {
@@ -113,6 +121,10 @@ ScrollView {
                 anchors.bottom: parent.bottom
                 anchors.margins: 20
                 text: " Ver sessões "
+                onClicked: {
+                    base.state = "screen2";
+                    screen2.movieTitle = "<h1>Enemy of Bill Gates</h1>"
+                }
             }
         }
         Rectangle {
@@ -148,6 +160,10 @@ ScrollView {
                 anchors.bottom: parent.bottom
                 anchors.margins: 20
                 text: " Ver sessões "
+                onClicked: {
+                    base.state = "screen2";
+                    screen2.movieTitle = "<h1>X-Men in Black</h1>"
+                }
             }
         }
         Rectangle {
@@ -184,6 +200,10 @@ ScrollView {
                 anchors.bottom: parent.bottom
                 anchors.margins: 20
                 text: " Ver sessões "
+                onClicked: {
+                    base.state = "screen2";
+                    screen2.movieTitle = "<h1>When Harry Meets Sully</h1>"
+                }
             }
         }
     }
