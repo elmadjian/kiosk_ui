@@ -187,7 +187,7 @@ ScrollView {
                 anchors.margins: 15
                 font.pixelSize: parent.height/15
                 wrapMode: Text.WordWrap
-                text: "<h3>When Harry Meets Sully</h3><br>"+
+                text: "<h3>When Harry Met Sully</h3><br>"+
                       "Sed et agam necessitatibus. No mucius doming insolens per, "+
                       "eirmod tamquam constituam ei mel, vel delenit quaestio evertitur "+
                       "ea. Pri id prima clita, et nominavi suscipit lucilius per. At eripuit "+
@@ -202,7 +202,7 @@ ScrollView {
                 text: " Ver sessões "
                 onClicked: {
                     base.state = "screen2";
-                    screen2.movieTitle = "<h1>When Harry Meets Sully</h1>"
+                    screen2.movieTitle = "<h1>When Harry Met Sully</h1>"
                 }
             }
         }

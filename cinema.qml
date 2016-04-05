@@ -55,110 +55,75 @@ Rectangle {
                 id: screen1
             }
 
-            Rectangle {
+            Session {
                 id: screen2
+            }
+            Rectangle {
+                id: screen3
                 width: parent.width
                 height: parent.height
                 color: "#D2C9BF"
-                property string movieTitle: ""
 
-                Column {
-                    width: parent.width - 36
-                    height: parent.height - 40
-                    anchors.centerIn: parent
-                    spacing: 10
-
-                    Text {
-                        text: screen2.movieTitle
+                Row {
+                    id: upperRows
+                    anchors.top: parent.top
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.topMargin: screen3.width/16
+                    spacing: 20
+                    Grid {
+                        columns: 3; rows: 6
+                        Repeater {
+                            model: 18
+                            Rectangle {
+                                width: screen3.width/16
+                                height: screen3.width/16
+                                border.width: 2
+                                border.color: "#246B7D"
+                            }
+                        }
                     }
-
-                    Text {
-                        width: parent.width/1.1
-                        wrapMode: Text.WordWrap
-                        text: "Lorem ipsum dolor sit amet, duo nisl magna cu. Aperiri "+
-                              "efficiantur id eam, affert delicata similique te pro, sit agam "+
-                              "accumsan et. Detracto intellegebat vix et, pri modus tempor omnium "+
-                              "an. Ipsum euripidis qui in.<br><br>"
+                    Grid {
+                        columns: 6; rows: 6
+                        Repeater {
+                            model: 36
+                            Rectangle {
+                                width: screen3.width/16
+                                height: screen3.width/16
+                                border.width: 2
+                                border.color: "#246B7D"
+                            }
+                        }
                     }
-
-                    Text {
-                        text: "<h2>Sessões de hoje:</h2>"
-                    }
-
-                    Column {
-                        width: screen2.width * 0.94
-                        height: screen2.height/1.4
-
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height/8
-                            color:"#C4B6AB"
-                            Row {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-                                spacing: 50
-                                Text { text: "14:00"; font.pixelSize: 15}
-                                Text { text: "Sala 2"; font.pixelSize: 15}
-                            }
-                        }
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height/8
-                            color:"#D2C9BF"
-                            Row {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-                                spacing: 50
-                                Text { text: "14:40"; font.pixelSize: 15}
-                                Text { text: "Sala 3"; font.pixelSize: 15}
-                            }
-                        }
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height/8
-                            color:"#C4B6AB"
-                            Row {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-                                spacing: 50
-                                Text { text: "15:45"; font.pixelSize: 15; color: "#CCCCCC"}
-                                Text { text: "Sala 4"; font.pixelSize: 15; color: "#CCCCCC"}
-                            }
-                        }
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height/8
-                            color: "#D2C9BF"
-                            Row {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-                                spacing: 50
-                                Text { text: "17:00"; font.pixelSize: 15}
-                                Text { text: "Sala 2"; font.pixelSize: 15}
-                            }
-                        }
-                        Rectangle {
-                            width: parent.width
-                            height: parent.height/8
-                            color: "#C4B6AB"
-                            Row {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-                                spacing: 50
-                                Text { text: "19:40"; font.pixelSize: 15}
-                                Text { text: "Sala 4"; font.pixelSize: 15}
+                    Grid {
+                        columns: 3; rows: 6
+                        Repeater {
+                            model: 18
+                            Rectangle {
+                                width: screen3.width/16
+                                height: screen3.width/16
+                                border.width: 2
+                                border.color: "#246B7D"
                             }
                         }
                     }
                 }
-
+                Grid {
+                    anchors.top: upperRows.bottom
+                    anchors.topMargin: screen3.width/24
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    columns: 6
+                    rows: 2
+                    Repeater {
+                        model: 12
+                        Rectangle {
+                            width: screen3.width/16
+                            height: screen3.width/16
+                            border.width: 2
+                            border.color: "#246B7D"
+                        }
+                    }
+                }
             }
-
         }
 
         //Rodapé com navegação
@@ -189,11 +154,11 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 20
-                    source: "imgs/arrow_left.svg"
+                    source: "imgs/undo.svg"
                     Text {
                         id: backtxt
                         anchors.horizontalCenter: parent.horizontalCenter
-                        text: "voltar"
+                        text: "desfazer"
                         color: "#DDDDDD"
                         y: parent.height + 5
                     }
@@ -214,7 +179,7 @@ Rectangle {
                         id: hometxt
                         anchors.horizontalCenter: parent.horizontalCenter
                         y: parent.height + 5
-                        text: "início"
+                        text: "recomeçar"
                         color: "#DDDDDD"
                     }
                     MouseArea {
@@ -231,7 +196,7 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 20
-                    source: "imgs/arrow_right.svg"
+                    source: "imgs/ok.svg"
                     Text {
                         id: forwardtxt
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -256,6 +221,7 @@ Rectangle {
             name: "screen1"
             PropertyChanges { target: screen1; visible: true }
             PropertyChanges { target: screen2; visible: false }
+            PropertyChanges { target: screen3; visible: false }
             PropertyChanges { target: footnote; height: parent.height/12 }
             PropertyChanges { target: container; height: parent.height/1.35 }
             PropertyChanges { target: navigation; visible: false }
@@ -264,10 +230,22 @@ Rectangle {
             name: "screen2"
             PropertyChanges { target: screen1; visible: false }
             PropertyChanges { target: screen2; visible: true }
+            PropertyChanges { target: screen3; visible: false }
             PropertyChanges { target: footnote; height: parent.height/8 }
             PropertyChanges { target: container; height: parent.height/1.44 }
             PropertyChanges { target: navigation; visible: true }
             PropertyChanges { target: base; previousState: "screen1"; nextState: "screen3" }
+            onCompleted: screen2.timeTable.clearTime();
+        },
+        State {
+            name: "screen3"
+            PropertyChanges { target: screen1; visible: false }
+            PropertyChanges { target: screen2; visible: false }
+            PropertyChanges { target: screen3; visible: true }
+            PropertyChanges { target: footnote; height: parent.height/8 }
+            PropertyChanges { target: container; height: parent.height/1.44 }
+            PropertyChanges { target: navigation; visible: true }
+            PropertyChanges { target: base; previousState: "screen2"; nextState: "screen4" }
         }
     ]
 
