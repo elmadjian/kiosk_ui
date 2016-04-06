@@ -60,10 +60,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 15
-                    spacing: parent.width/6.5
-                    Text { text: "14:00"; font.pixelSize: 15 }
-                    Text { text: "Sala 2        "; font.pixelSize: 15 }
-                    Text { text: "dublado   "; font.pixelSize: 12; font.italic: true }
+                    Text { text: "14:00"; font.pixelSize: 15; width: timetable1.width/4 }
+                    Text { text: "Sala 2"; font.pixelSize: 15; width: timetable1.width/4 }
+                    Text { text: "dublado"; font.pixelSize: 12; font.italic: true; width: timetable1.width/4 }
                     Button {
                         text: " Selecionar "
                         onClicked: { timetable.highlightTime(timetable1); }
@@ -79,10 +78,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 15
-                    spacing: parent.width/6.5
-                    Text { text: "14:40"; font.pixelSize: 15}
-                    Text { text: "Sala 3 (3D)"; font.pixelSize: 15}
-                    Text { text: "legendado"; font.pixelSize: 12; font.italic: true}
+                    Text { text: "14:40"; font.pixelSize: 15; width: timetable2.width/4}
+                    Text { text: "Sala 3 (3D)"; font.pixelSize: 15; width: timetable2.width/4}
+                    Text { text: "legendado"; font.pixelSize: 12; font.italic: true; width: timetable2.width/4}
                     Button {
                         text: " Selecionar "
                         onClicked: { timetable.highlightTime(timetable2); }
@@ -98,10 +96,12 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 15
-                    spacing: parent.width/6.5
-                    Text { text: "15:45"; font.pixelSize: 15; color: "#999999"}
-                    Text { text: "Sala 4 (3D)"; font.pixelSize: 15; color: "#999999"}
-                    Text { text: "dublado   "; font.pixelSize: 12; font.italic: true; color: "#999999"}
+                    Text { text: "15:45"; font.pixelSize: 15;
+                           color: "#999999"; width: timetable3.width/4 }
+                    Text { text: "Sala 4 (3D)"; font.pixelSize: 15;
+                           color: "#999999"; width: timetable3.width/4}
+                    Text { text: "dublado"; font.pixelSize: 12; font.italic: true;
+                           color: "#999999"; width: timetable3.width/4}
                     Text { text: "ESGOTADO"; color: "red" }
                 }
             }
@@ -114,10 +114,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 15
-                    spacing: parent.width/6.5
-                    Text { text: "17:00"; font.pixelSize: 15}
-                    Text { text: "Sala 2        "; font.pixelSize: 15}
-                    Text { text: "dublado   "; font.pixelSize: 12; font.italic: true}
+                    Text { text: "17:00"; font.pixelSize: 15; width: timetable4.width/4}
+                    Text { text: "Sala 2"; font.pixelSize: 15; width: timetable4.width/4}
+                    Text { text: "dublado"; font.pixelSize: 12; font.italic: true; width: timetable4.width/4}
                     Button {
                         text: " Selecionar "
                         onClicked: { timetable.highlightTime(timetable4); }
@@ -133,10 +132,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 15
-                    spacing: parent.width/6.5
-                    Text { text: "19:40"; font.pixelSize: 15}
-                    Text { text: "Sala 4        "; font.pixelSize: 15}
-                    Text { text: "legendado"; font.pixelSize: 12; font.italic: true}
+                    Text { text: "19:40"; font.pixelSize: 15; width: timetable5.width/4}
+                    Text { text: "Sala 4"; font.pixelSize: 15; width: timetable5.width/4}
+                    Text { text: "legendado"; font.pixelSize: 12; font.italic: true; width: timetable5.width/4}
                     Button {
                         text: " Selecionar "
                         onClicked: { timetable.highlightTime(timetable5); }

@@ -3,8 +3,8 @@ import QtQuick.Controls 1.4
 
 Rectangle {
     id: base
-    width: 600
-    height: 800
+    width: 549
+    height: 732
     color: "white"
     property string previousState: ""
     property string nextState: ""
