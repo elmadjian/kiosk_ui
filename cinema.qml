@@ -64,66 +64,148 @@ Rectangle {
                 height: parent.height
                 color: "#D2C9BF"
 
-                Row {
-                    id: upperRows
-                    anchors.top: parent.top
+                Rectangle {
+                    id: auditorium
+                    width: parent.width * 0.8
+                    height: parent.height
+                    color: Qt.rgba(0, 0, 0, 0)
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.topMargin: screen3.width/16
-                    spacing: 20
-                    Grid {
-                        columns: 3; rows: 6
-                        Repeater {
-                            model: 18
-                            Rectangle {
-                                width: screen3.width/16
-                                height: screen3.width/16
-                                border.width: 2
-                                border.color: "#246B7D"
+
+                    Image {
+                        id: cinemaBG
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        fillMode: Image.PreserveAspectFit
+                        width: parent.width
+                        source: "imgs/cinema.png"
+                    }
+
+                    Row {
+                        id: upperRows
+                        anchors.top: parent.top
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.topMargin: auditorium.width/16
+                        spacing: 20
+
+                        function raffleColor() {
+                            if (Math.random() > 0.65)
+                                return "#999999";
+                            return "white";
+                        }
+
+                        function setColor(element){
+                            if (element.color == "#ffffff")
+                                element.color = "#ff0000";
+                            else if (element.color == "#ff0000")
+                                element.color = "#ffffff";
+                        }
+
+                        Grid {
+                            columns: 3; rows: 6
+                            Repeater {
+                                model: 18
+                                Rectangle {
+                                    width: auditorium.width/16
+                                    height: auditorium.width/16
+                                    border.width: 2
+                                    border.color: "#246B7D"
+                                    color: upperRows.raffleColor();
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: "PointingHandCursor"
+                                        onClicked: upperRows.setColor(parent);
+                                    }
+                                }
+                            }
+                        }
+                        Grid {
+                            columns: 6; rows: 6
+                            Repeater {
+                                model: 36
+                                Rectangle {
+                                    width: auditorium.width/16
+                                    height: auditorium.width/16
+                                    border.width: 2
+                                    border.color: "#246B7D"
+                                    color: upperRows.raffleColor();
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: "PointingHandCursor"
+                                        onClicked: upperRows.setColor(parent);
+                                    }
+                                }
+                            }
+                        }
+                        Grid {
+                            columns: 3; rows: 6
+                            Repeater {
+                                model: 18
+                                Rectangle {
+                                    width: auditorium.width/16
+                                    height: auditorium.width/16
+                                    border.width: 2
+                                    border.color: "#246B7D"
+                                    color: upperRows.raffleColor();
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: "PointingHandCursor"
+                                        onClicked: upperRows.setColor(parent);
+                                    }
+                                }
                             }
                         }
                     }
                     Grid {
-                        columns: 6; rows: 6
+                        anchors.top: upperRows.bottom
+                        anchors.topMargin: auditorium.width/24
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        columns: 6
+                        rows: 2
                         Repeater {
-                            model: 36
+                            model: 12
                             Rectangle {
-                                width: screen3.width/16
-                                height: screen3.width/16
+                                width: auditorium.width/16
+                                height: auditorium.width/16
                                 border.width: 2
                                 border.color: "#246B7D"
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: "PointingHandCursor"
+                                    onClicked: upperRows.setColor(parent);
+                                }
                             }
                         }
                     }
-                    Grid {
-                        columns: 3; rows: 6
-                        Repeater {
-                            model: 18
+
+                    Column {
+                        anchors.top: cinemaBG.bottom
+                        Row {
+                            spacing: 10
                             Rectangle {
-                                width: screen3.width/16
-                                height: screen3.width/16
-                                border.width: 2
-                                border.color: "#246B7D"
+                                width: 15
+                                height: 15
+                                radius: 4
+                                color: "white"
+                            }
+                            Text {
+                                text: "disponível"
                             }
                         }
-                    }
-                }
-                Grid {
-                    anchors.top: upperRows.bottom
-                    anchors.topMargin: screen3.width/24
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    columns: 6
-                    rows: 2
-                    Repeater {
-                        model: 12
-                        Rectangle {
-                            width: screen3.width/16
-                            height: screen3.width/16
-                            border.width: 2
-                            border.color: "#246B7D"
+                        Row {
+                            spacing: 10
+                            Rectangle {
+                                width: 15
+                                height: 15
+                                radius: 4
+                                color: "#999999"
+                            }
+                            Text {
+                                text: "ocupado"
+                            }
                         }
                     }
                 }
             }
+
         }
 
         //Rodapé com navegação
