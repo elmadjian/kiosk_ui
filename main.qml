@@ -67,7 +67,26 @@ Rectangle {
                 id: screen4
                 width: parent.width
                 height: parent.height
-                color: "black";
+                color: "#D2C9BF"
+
+                Row {
+                    width: parent.width/2
+                    height: parent.height/3
+                    Rectangle {
+                        width: parent.width * 0.9
+                        height: parent.height * 0.9
+                        anchors.centerIn: parent
+                        color: "black"
+                        radius: 10
+                    }
+                    Rectangle {
+                        width: parent.width * 0.9
+                        height: parent.height * 0.9
+                        anchors.centerIn: parent
+                        color: "blue"
+                        radius: 10
+                    }
+                }
             }
 
         }
