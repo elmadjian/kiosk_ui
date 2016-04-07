@@ -58,152 +58,16 @@ Rectangle {
             Session {
                 id: screen2
             }
-            Rectangle {
+
+            Theater {
                 id: screen3
+            }
+
+            Rectangle {
+                id: screen4
                 width: parent.width
                 height: parent.height
-                color: "#D2C9BF"
-
-                Rectangle {
-                    id: auditorium
-                    width: parent.width * 0.8
-                    height: parent.height
-                    color: Qt.rgba(0, 0, 0, 0)
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                    Image {
-                        id: cinemaBG
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        fillMode: Image.PreserveAspectFit
-                        width: parent.width
-                        source: "imgs/cinema.png"
-                    }
-
-                    Row {
-                        id: upperRows
-                        anchors.top: parent.top
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.topMargin: auditorium.width/16
-                        spacing: 20
-
-                        function raffleColor() {
-                            if (Math.random() > 0.65)
-                                return "#999999";
-                            return "white";
-                        }
-
-                        function setColor(element){
-                            if (element.color == "#ffffff")
-                                element.color = "#ff0000";
-                            else if (element.color == "#ff0000")
-                                element.color = "#ffffff";
-                        }
-
-                        Grid {
-                            columns: 3; rows: 6
-                            Repeater {
-                                model: 18
-                                Rectangle {
-                                    width: auditorium.width/16
-                                    height: auditorium.width/16
-                                    border.width: 2
-                                    border.color: "#246B7D"
-                                    color: upperRows.raffleColor();
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        cursorShape: "PointingHandCursor"
-                                        onClicked: upperRows.setColor(parent);
-                                    }
-                                }
-                            }
-                        }
-                        Grid {
-                            columns: 6; rows: 6
-                            Repeater {
-                                model: 36
-                                Rectangle {
-                                    width: auditorium.width/16
-                                    height: auditorium.width/16
-                                    border.width: 2
-                                    border.color: "#246B7D"
-                                    color: upperRows.raffleColor();
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        cursorShape: "PointingHandCursor"
-                                        onClicked: upperRows.setColor(parent);
-                                    }
-                                }
-                            }
-                        }
-                        Grid {
-                            columns: 3; rows: 6
-                            Repeater {
-                                model: 18
-                                Rectangle {
-                                    width: auditorium.width/16
-                                    height: auditorium.width/16
-                                    border.width: 2
-                                    border.color: "#246B7D"
-                                    color: upperRows.raffleColor();
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        cursorShape: "PointingHandCursor"
-                                        onClicked: upperRows.setColor(parent);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Grid {
-                        anchors.top: upperRows.bottom
-                        anchors.topMargin: auditorium.width/24
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        columns: 6
-                        rows: 2
-                        Repeater {
-                            model: 12
-                            Rectangle {
-                                width: auditorium.width/16
-                                height: auditorium.width/16
-                                border.width: 2
-                                border.color: "#246B7D"
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: "PointingHandCursor"
-                                    onClicked: upperRows.setColor(parent);
-                                }
-                            }
-                        }
-                    }
-
-                    Column {
-                        anchors.top: cinemaBG.bottom
-                        Row {
-                            spacing: 10
-                            Rectangle {
-                                width: 15
-                                height: 15
-                                radius: 4
-                                color: "white"
-                            }
-                            Text {
-                                text: "disponível"
-                            }
-                        }
-                        Row {
-                            spacing: 10
-                            Rectangle {
-                                width: 15
-                                height: 15
-                                radius: 4
-                                color: "#999999"
-                            }
-                            Text {
-                                text: "ocupado"
-                            }
-                        }
-                    }
-                }
+                color: "black";
             }
 
         }
@@ -304,6 +168,7 @@ Rectangle {
             PropertyChanges { target: screen1; visible: true }
             PropertyChanges { target: screen2; visible: false }
             PropertyChanges { target: screen3; visible: false }
+            PropertyChanges { target: screen4; visible: false }
             PropertyChanges { target: footnote; height: parent.height/12 }
             PropertyChanges { target: container; height: parent.height/1.35 }
             PropertyChanges { target: navigation; visible: false }
@@ -313,6 +178,7 @@ Rectangle {
             PropertyChanges { target: screen1; visible: false }
             PropertyChanges { target: screen2; visible: true }
             PropertyChanges { target: screen3; visible: false }
+            PropertyChanges { target: screen4; visible: false }
             PropertyChanges { target: footnote; height: parent.height/8 }
             PropertyChanges { target: container; height: parent.height/1.44 }
             PropertyChanges { target: navigation; visible: true }
@@ -324,10 +190,22 @@ Rectangle {
             PropertyChanges { target: screen1; visible: false }
             PropertyChanges { target: screen2; visible: false }
             PropertyChanges { target: screen3; visible: true }
+            PropertyChanges { target: screen4; visible: false }
             PropertyChanges { target: footnote; height: parent.height/8 }
             PropertyChanges { target: container; height: parent.height/1.44 }
             PropertyChanges { target: navigation; visible: true }
             PropertyChanges { target: base; previousState: "screen2"; nextState: "screen4" }
+        },
+        State {
+            name: "screen4"
+            PropertyChanges { target: screen1; visible: false }
+            PropertyChanges { target: screen2; visible: false }
+            PropertyChanges { target: screen3; visible: false }
+            PropertyChanges { target: screen4; visible: true }
+            PropertyChanges { target: footnote; height: parent.height/8 }
+            PropertyChanges { target: container; height: parent.height/1.44 }
+            PropertyChanges { target: navigation; visible: true }
+            PropertyChanges { target: base; previousState: "screen3"; nextState: "screen5" }
         }
     ]
 
