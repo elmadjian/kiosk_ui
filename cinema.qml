@@ -175,55 +175,16 @@ Rectangle {
             width: base.width
             height: parent.height/1.35
 
-            MovieList { id: screen1 }
+            Screen1 { id: screen1 }
 
-            Session { id: screen2 }
+            Screen2 { id: screen2 }
 
-            Theater { id: screen3 }
+            Screen3 { id: screen3 }
 
-            Payment { id: screen4 }
+            Screen4 { id: screen4 }
 
-            Rectangle {
-                id: screen5
-                width: parent.width
-                height: parent.height
-                color: "#D2C9BF"
-                visible: false
+            Screen5 { id: screen5}
 
-                Column {
-                    width: parent.width * 0.8
-                    height: parent.height * 0.8
-                    anchors.centerIn: parent
-                    spacing: 20
-
-                    Image {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: parent.width/2.5
-                        source: "imgs/popcorn.svg"
-                        fillMode: Image.PreserveAspectFit
-                    }
-                    Rectangle {
-                        width: parent.width
-                        height: parent.height * 0.45
-                        color: "#C4B6AB"
-                        radius: 10
-                        Text {
-                            anchors.centerIn: parent
-                            text: "<h2>Pagamento efetuado com sucesso!</h2><br><ul>" +
-                                  '<h4>Alguns avisos:</h4><br>' +
-                                  "<li>&#8226;É proibido fumar no interior da sala</li>" +
-                                  "<li>&#8226;É proibido entrar portando latas ou garrafas</li>" +
-                                  "<li>&#8226;Por favor, deixe seu celular desligado</li><br><br>"
-                        }
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.bottom
-                            anchors.bottomMargin: 10
-                            text: "<h4>BOA SESSÃO!</h4>"
-                        }
-                    }
-                }
-            }
             Rectangle {
                 id: warningDialog
                 width: parent.width * 0.7
@@ -290,13 +251,23 @@ Rectangle {
                         id: backtxt
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: "desfazer"
-                        color: "#DDDDDD"
+                        color: "white"
                         y: parent.height + 3
+                        opacity: 0.35;
                     }
                     MouseArea {
+                        hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: "PointingHandCursor"
                         onClicked: base.state = base.previousState
+                        onEntered: {
+                            parent.source = "imgs/undo2.svg";
+                            backtxt.opacity = 1.0;
+                        }
+                        onExited: {
+                            parent.source = "imgs/undo.svg";
+                            backtxt.opacity = 0.35;
+                        }
                     }
                 }
 
@@ -312,12 +283,22 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         y: parent.height + 3
                         text: "recomeçar"
-                        color: "#DDDDDD"
+                        color: "white"
+                        opacity: 0.35;
                     }
                     MouseArea {
+                        hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: "PointingHandCursor"
                         onClicked: base.state = "screen1"
+                        onEntered: {
+                            parent.source = "imgs/home2.svg";
+                            hometxt.opacity = 1.0;
+                        }
+                        onExited: {
+                            parent.source = "imgs/home.svg";
+                            hometxt.opacity = 0.35;
+                        }
                     }
                 }
 
@@ -334,12 +315,22 @@ Rectangle {
                         id: forwardtxt
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: "confirmar"
-                        color: "#DDDDDD"
+                        color: "white"
                         y: parent.height + 3
+                        opacity: 0.35;
                     }
                     MouseArea {
+                        hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: "PointingHandCursor"
+                        onEntered: {
+                            parent.source = "imgs/ok2.svg";
+                            forwardtxt.opacity = 1.0;
+                        }
+                        onExited: {
+                            parent.source = "imgs/ok.svg";
+                            forwardtxt.opacity = 0.35;
+                        }
                         onClicked: {
                             if (base.state == "screen2" && !screen2.movieSelected) {
                                 warningTxt.text = "<h4>Por favor, selecione uma sessão antes de continuar</h4>";
