@@ -11,6 +11,7 @@ Rectangle {
     property alias timeTable: timetable
     property bool movieSelected: false
 
+    //salva um filme como "selecionado" no sistema
     function selectMovie(element, string) {
         timetable.highlightTime(element);
         screen2.session = string;
@@ -23,6 +24,8 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 10
 
+        //Título e descrição do filme
+        //---------------------------
         Text {
             text: screen2.movieTitle
         }
@@ -40,6 +43,8 @@ Rectangle {
             text: "<h2>Sessões de hoje:</h2>"
         }
 
+        //Lista de sessões
+        //----------------
         Column {
             id: timetable
             width: screen2.width * 0.94

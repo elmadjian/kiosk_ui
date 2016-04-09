@@ -203,6 +203,7 @@ Rectangle {
             }
         }
     }
+    //tela de confirmação -> conclui a compra
     Rectangle {
         id: confirmScreen
         visible: false
