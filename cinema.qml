@@ -68,7 +68,8 @@ Rectangle {
                 id: screen4
                 width: parent.width
                 height: parent.height
-                color: "#D2C9BF"
+                color: "#D2C9BF"   
+                property string payment: ""
 
                 Column {
                     id: paymentContainer
@@ -106,6 +107,7 @@ Rectangle {
                                     debit.border.width = 4
                                     credit.border.width = 0
                                     additionalInfo.visible = true
+                                    screen4.payment = "débito"
                                 }
                             }
 
@@ -135,6 +137,7 @@ Rectangle {
                                     credit.border.width = 4
                                     debit.border.width = 0
                                     additionalInfo.visible = true
+                                    screen4.payment = "crédito"
                                 }
                             }
 
@@ -267,7 +270,7 @@ Rectangle {
                     id: confirmScreen
                     visible: false
                     width: parent.width * 0.8
-                    height: parent.height * 0.8
+                    height: parent.height * 0.45
                     color: "white"
                     radius: 8
                     anchors.centerIn: parent
@@ -276,19 +279,48 @@ Rectangle {
 
 
                     Column {
+                        width: parent.width * 0.8
+                        height: parent.height * 0.8
+                        anchors.centerIn: parent
                         Text {
-                            text: "*** ATENÇÃO: ESTA OPERAÇÃO NÃO PODERÁ SER DESFEITA ***"
+                            text: "*** UMA VEZ CONFIRMADA, ESTA OPERAÇÃO NÃO PODERÁ SER DESFEITA ***\n"
                             color: "red"
+                            font.pixelSize: parent.width/40
                         }
                         Text {
-                            text: "Por favor, confirme os dados da sua compra:"+
-                                  "\nAssentos: " + screen3.getSeatsAsString() +
-                                  "\nValor total: " + screen3.total +
-                                  "\nForma de pagamento: "
-
+                            text: "<h3>Por favor, confirme os dados da compra:</h3><br><lu>"+
+                                  "<li>Filme: " + screen2.movieTitle.substring(4, screen2.movieTitle.length-5) + "</li>" +
+                                  "<li>Sessão: " + screen2.session + "</li>" +
+                                  "<li>Assentos: " + screen3.getSeatsAsString() + "</li>" +
+                                  "<li>Valor total: R$" + screen3.total + "</li>" +
+                                  "<li>Forma de pagamento: " + screen4.payment + "</li></lu><br>"
+                        }
+                        Row {
+                            width: parent.width
+                            spacing: 10
+                            Button {
+                                iconSource: "imgs/field_wrong.png"
+                                text: "Cancelar"
+                                onClicked: {
+                                    confirmScreen.visible = false
+                                    paymentContainer.opacity = 1.0
+                                }
+                            }
+                            Button {
+                                iconSource: "imgs/field_check.png"
+                                text: "Confirmar"
+                                onClicked: base.state = "screen5"
+                            }
                         }
                     }
                 }
+            }
+            Rectangle {
+                id: screen5
+                width: parent.width
+                height: parent.height
+                color: "black"
+                visible: false
             }
         }
 
@@ -378,10 +410,10 @@ Rectangle {
                         cursorShape: "PointingHandCursor"
                         onClicked: {
                             if (base.state == "screen4") {
-                                if (additionalInfo.fieldsFilled == 3) {
+                                //if (additionalInfo.fieldsFilled == 3) {
                                     confirmScreen.visible = true;
                                     paymentContainer.opacity = 0.2;
-                                }
+                                //}
                             }
                             else
                                 base.state = base.nextState
@@ -438,6 +470,17 @@ Rectangle {
             PropertyChanges { target: container; height: parent.height/1.44 }
             PropertyChanges { target: navigation; visible: true }
             PropertyChanges { target: base; previousState: "screen3"; nextState: "screen5" }
+        },
+        State {
+            name: "screen5"
+            PropertyChanges { target: screen1; visible: false }
+            PropertyChanges { target: screen2; visible: false }
+            PropertyChanges { target: screen3; visible: false }
+            PropertyChanges { target: screen4; visible: false }
+            PropertyChanges { target: screen5; visible: true }
+            PropertyChanges { target: footnote; height: parent.height/12 }
+            PropertyChanges { target: container; height: parent.height/1.35 }
+            PropertyChanges { target: navigation; visible: false }
         }
     ]
 

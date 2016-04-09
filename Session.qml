@@ -2,10 +2,12 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 
 Rectangle {
+    id: screen2
     width: parent.width
     height: parent.height
     color: "#D2C9BF"
     property string movieTitle: ""
+    property string session: ""
     property alias timeTable: timetable
 
     Column {
@@ -65,7 +67,10 @@ Rectangle {
                     Text { text: "dublado"; font.pixelSize: 12; font.italic: true; width: timetable1.width/4 }
                     Button {
                         text: " Selecionar "
-                        onClicked: { timetable.highlightTime(timetable1); }
+                        onClicked: {
+                            timetable.highlightTime(timetable1);
+                            screen2.session = "14:00 - Sala 2 - dublado";
+                        }
                     }
                 }
             }
@@ -83,7 +88,10 @@ Rectangle {
                     Text { text: "legendado"; font.pixelSize: 12; font.italic: true; width: timetable2.width/4}
                     Button {
                         text: " Selecionar "
-                        onClicked: { timetable.highlightTime(timetable2); }
+                        onClicked: {
+                            timetable.highlightTime(timetable2);
+                            screen2.session = "14:40 - Sala 3 (3D) - legendado";
+                        }
                     }
                 }
             }
@@ -119,7 +127,10 @@ Rectangle {
                     Text { text: "dublado"; font.pixelSize: 12; font.italic: true; width: timetable4.width/4}
                     Button {
                         text: " Selecionar "
-                        onClicked: { timetable.highlightTime(timetable4); }
+                        onClicked: {
+                            timetable.highlightTime(timetable4);
+                            screen2.session = "17:00 - Sala 2 - dublado";
+                        }
                     }
                 }
             }
@@ -137,7 +148,10 @@ Rectangle {
                     Text { text: "legendado"; font.pixelSize: 12; font.italic: true; width: timetable5.width/4}
                     Button {
                         text: " Selecionar "
-                        onClicked: { timetable.highlightTime(timetable5); }
+                        onClicked: {
+                            timetable.highlightTime(timetable5);
+                            screen2.session = "19:40 - Sala 4 - legendado";
+                        }
                     }
                 }
             }
