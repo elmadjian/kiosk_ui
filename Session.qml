@@ -9,6 +9,13 @@ Rectangle {
     property string movieTitle: ""
     property string session: ""
     property alias timeTable: timetable
+    property bool movieSelected: false
+
+    function selectMovie(element, string) {
+        timetable.highlightTime(element);
+        screen2.session = string;
+        screen2.movieSelected = true;
+    }
 
     Column {
         width: parent.width - 36
@@ -67,10 +74,7 @@ Rectangle {
                     Text { text: "dublado"; font.pixelSize: 12; font.italic: true; width: timetable1.width/4 }
                     Button {
                         text: " Selecionar "
-                        onClicked: {
-                            timetable.highlightTime(timetable1);
-                            screen2.session = "14:00 - Sala 2 - dublado";
-                        }
+                        onClicked: screen2.selectMovie(timetable1, "14:00 - Sala 2 - dublado");
                     }
                 }
             }
@@ -88,10 +92,7 @@ Rectangle {
                     Text { text: "legendado"; font.pixelSize: 12; font.italic: true; width: timetable2.width/4}
                     Button {
                         text: " Selecionar "
-                        onClicked: {
-                            timetable.highlightTime(timetable2);
-                            screen2.session = "14:40 - Sala 3 (3D) - legendado";
-                        }
+                        onClicked: screen2.selectMovie(timetable2, "14:40 - Sala 3 (3D) - legendado");
                     }
                 }
             }
@@ -127,10 +128,7 @@ Rectangle {
                     Text { text: "dublado"; font.pixelSize: 12; font.italic: true; width: timetable4.width/4}
                     Button {
                         text: " Selecionar "
-                        onClicked: {
-                            timetable.highlightTime(timetable4);
-                            screen2.session = "17:00 - Sala 2 - dublado";
-                        }
+                        onClicked: screen2.selectMovie(timetable4, "17:00 - Sala 2 - dublado");
                     }
                 }
             }
@@ -148,10 +146,7 @@ Rectangle {
                     Text { text: "legendado"; font.pixelSize: 12; font.italic: true; width: timetable5.width/4}
                     Button {
                         text: " Selecionar "
-                        onClicked: {
-                            timetable.highlightTime(timetable5);
-                            screen2.session = "19:40 - Sala 4 - legendado";
-                        }
+                        onClicked: screen2.selectMovie(timetable5, "19:40 - Sala 4 - legendado");
                     }
                 }
             }

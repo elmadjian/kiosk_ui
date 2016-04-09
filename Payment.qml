@@ -105,15 +105,12 @@ Rectangle {
             property int fieldsFilled: 0
 
             Column {
-                width: parent.width * 0.95
-                height: parent.height * 0.9
+                width: parent.width * 0.9
+                height: parent.height * 0.8
                 anchors.centerIn: parent
                 spacing: 15
 
-                Text {
-                    text: "INFORMAÇÕES ADICIONAIS:"
-                    font.underline: true
-                }
+                Text { text: "<h4>INFORMAÇÕES ADICIONAIS:</h4>" }
                 Row {
                     spacing: 10
                     Text {

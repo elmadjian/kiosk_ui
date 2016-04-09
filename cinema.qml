@@ -212,9 +212,45 @@ Rectangle {
                             text: "<h2>Pagamento efetuado com sucesso!</h2><br><ul>" +
                                   '<h4>Alguns avisos:</h4><br>' +
                                   "<li>&#8226;É proibido fumar no interior da sala</li>" +
-                                  "<li>&#8226;É proibido portar latas e garrafas</li>" +
-                                  "<li>&#8226;Por favor, deixe seu celular desligado</li><br>"
+                                  "<li>&#8226;É proibido entrar portando latas ou garrafas</li>" +
+                                  "<li>&#8226;Por favor, deixe seu celular desligado</li><br><br>"
                         }
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 10
+                            text: "<h4>BOA SESSÃO!</h4>"
+                        }
+                    }
+                }
+            }
+            Rectangle {
+                id: warningDialog
+                width: parent.width * 0.7
+                height: parent.height * 0.2
+                color: "white"
+                border.color: "#246B7D"
+                border.width: 4
+                visible: false
+                anchors.centerIn: parent
+                radius: 10
+
+                Column {
+                    width: parent.width * 0.8
+                    height: parent.height * 0.7
+                    anchors.centerIn: parent
+                    Text {
+                        horizontalAlignment: Text.Center
+                        width: parent.width
+                        id: warningTxt
+                        text: ""
+                        wrapMode: Text.WordWrap
+                    }
+                    Button {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        iconSource: "imgs/field_check.png"
+                        text: "Entendi"
+                        onClicked: warningDialog.visible = false;
                     }
                 }
             }
@@ -255,7 +291,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: "desfazer"
                         color: "#DDDDDD"
-                        y: parent.height + 5
+                        y: parent.height + 3
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -274,7 +310,7 @@ Rectangle {
                     Text {
                         id: hometxt
                         anchors.horizontalCenter: parent.horizontalCenter
-                        y: parent.height + 5
+                        y: parent.height + 3
                         text: "recomeçar"
                         color: "#DDDDDD"
                     }
@@ -299,20 +335,35 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: "confirmar"
                         color: "#DDDDDD"
-                        y: parent.height + 5
+                        y: parent.height + 3
                     }
                     MouseArea {
                         anchors.fill: parent
                         cursorShape: "PointingHandCursor"
                         onClicked: {
-                            if (base.state == "screen4") {
+                            if (base.state == "screen2" && !screen2.movieSelected) {
+                                warningTxt.text = "<h4>Por favor, selecione uma sessão antes de continuar</h4>";
+                                warningDialog.visible = true;
+                            }
+                            else if (base.state == "screen3" && !screen3.seatsOK) {
+                                warningTxt.text = "<h4>Número de assentos selecionados inválido</h4>";
+                                warningDialog.visible = true;
+                            }
+                            else if (base.state == "screen4") {
                                 if (screen4.additionalInfo.fieldsFilled == 3) {
                                     screen4.confirmScreen.visible = true;
                                     screen4.paymentContainer.opacity = 0.2;
                                 }
+                                else {
+                                    warningTxt.text = "<h4>É necessário preencher os campos com os dados do " +
+                                                      "cartão antes de continuar</h4>";
+                                    warningDialog.visible = true;
+                                }
                             }
-                            else
+                            else {
                                 base.state = base.nextState
+                                warningDialog.visible = false;
+                            }
                         }
                     }
                 }
@@ -326,7 +377,7 @@ Rectangle {
         State {
             name: "screen1"
             PropertyChanges { target: screen1; visible: true }
-            PropertyChanges { target: screen2; visible: false }
+            PropertyChanges { target: screen2; visible: false}
             PropertyChanges { target: screen3; visible: false }
             PropertyChanges { target: screen4; visible: false }
             PropertyChanges { target: footnote; height: parent.height/12 }
@@ -337,7 +388,7 @@ Rectangle {
         State {
             name: "screen2"
             PropertyChanges { target: screen1; visible: false }
-            PropertyChanges { target: screen2; visible: true }
+            PropertyChanges { target: screen2; visible: true; movieSelected: false }
             PropertyChanges { target: screen3; visible: false }
             PropertyChanges { target: screen4; visible: false }
             PropertyChanges { target: footnote; height: parent.height/8 }
@@ -351,7 +402,7 @@ Rectangle {
             name: "screen3"
             PropertyChanges { target: screen1; visible: false }
             PropertyChanges { target: screen2; visible: false }
-            PropertyChanges { target: screen3; visible: true }
+            PropertyChanges { target: screen3; visible: true; seatsOK: screen3.tickets > 0 ? true : false }
             PropertyChanges { target: screen4; visible: false }
             PropertyChanges { target: footnote; height: parent.height/8 }
             PropertyChanges { target: container; height: parent.height/1.44 }
@@ -386,6 +437,4 @@ Rectangle {
     ]
 
     state: "screen1"
-
-
 }

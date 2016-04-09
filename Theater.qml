@@ -9,6 +9,7 @@ Rectangle {
     property int tickets: 0
     property var seats: []
     property int total: 0
+    property bool seatsOK: false
 
     //sorteia ocupação de uma poltrona
     function raffleColor() {
@@ -22,6 +23,7 @@ Rectangle {
         seatsText.text = screen3.getSeatsAsString();
         wholeTicket.value = screen3.tickets;
         halfTicket.value = 0;
+        screen3.seatsOK = (screen3.seats == 0) ? false : true;
     }
 
     //muda a cor da potlrona para vermelho e
@@ -31,13 +33,19 @@ Rectangle {
             element.color = "#ff0000";
             screen3.tickets++;
             screen3.seats.push(element.id);
-            seatBG.width += 18;
+            if (screen3.tickets < 5)
+                seatBG.width += 18;
+            if (screen3.tickets == 5 || screen3.tickets == 9)
+                seatBG.height += 18;
         }
         else if (element.color == "#ff0000") {
             element.color = "#ffffff";
             screen3.tickets--;
             screen3.seats.splice(screen3.seats.indexOf(element.id),1);
-            seatBG.width -= 18;
+            if (screen3.tickets < 4)
+                seatBG.width -= 18;
+            if (screen3.tickets == 4 || screen3.tickets == 8)
+                seatBG.height -= 18;
         }
         screen3.updateSeats();
     }
@@ -49,7 +57,6 @@ Rectangle {
             boughtSeats += screen3.seats[i] + " ";
         return boughtSeats.slice(0,-1);
     }
-
 
     Rectangle {
         id: auditorium
@@ -64,7 +71,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             fillMode: Image.PreserveAspectFit
             width: parent.width
-            source: "imgs/cinema.png"
+            source: "imgs/cinema2.png"
         }
 
         //poltronas superiores
@@ -100,10 +107,7 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: "PointingHandCursor"
-                            onClicked: {
-                                screen3.setColor(parent);
-                                console.log("poltrona:", parent.id);
-                            }
+                            onClicked: screen3.setColor(parent);
                         }
                     }
                 }
@@ -132,10 +136,7 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: "PointingHandCursor"
-                            onClicked: {
-                                screen3.setColor(parent);
-                                console.log("poltrona:", parent.id);
-                            }
+                            onClicked: screen3.setColor(parent);
                         }
                     }
                 }
@@ -164,10 +165,7 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: "PointingHandCursor"
-                            onClicked: {
-                                screen3.setColor(parent);
-                                console.log("poltrona:", parent.id);
-                            }
+                            onClicked: screen3.setColor(parent);
                         }
                     }
                 }
@@ -200,10 +198,7 @@ Rectangle {
                     MouseArea {
                         anchors.fill: parent
                         cursorShape: "PointingHandCursor"
-                        onClicked: {
-                            screen3.setColor(parent);
-                            console.log("poltrona:", parent.id);
-                        }
+                        onClicked: screen3.setColor(parent);
                     }
                 }
             }
@@ -278,7 +273,15 @@ Rectangle {
                 Row {
                     Text { text: "Poltronas: "; anchors.verticalCenter: parent.verticalCenter }
                     Rectangle { id: seatBG; width: 30; height: 15; color: "white"; radius: 4
-                        Text { id: seatsText; text: ""; anchors.centerIn: parent}
+                        Text {
+                            id: seatsText;
+                            text: "";
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.leftMargin: 10
+                            wrapMode: Text.WordWrap
+                            width: 100
+                        }
                     }
                 }
             }
@@ -298,10 +301,12 @@ Rectangle {
                     else if (wholeTicket.value + halfTicket.value < screen3.tickets) {
                         wtt.color = "red";
                         htt.color = "red";
+                        screen3.seatsOK = false;
                     }
                     else {
                         wtt.color = "black";
                         htt.color = "black";
+                        screen3.seatsOK = true;
                         var surmount = wholeTicket.value * 20 + halfTicket.value * 10;
                         totalCost.text = "R$ " + surmount;
                         screen3.total = surmount;
