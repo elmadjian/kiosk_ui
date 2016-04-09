@@ -6,6 +6,50 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: "#D2C9BF"
+    property int tickets: 0
+    property var seats: []
+    property int total: 0
+
+    //sorteia ocupação de uma poltrona
+    function raffleColor() {
+        if (Math.random() > 0.65)
+            return "#999999";
+        return "white";
+    }
+
+    //atualiza dados sobre os assentos
+    function updateSeats() {
+        seatsText.text = screen3.getSeatsAsString();
+        wholeTicket.value = screen3.tickets;
+        halfTicket.value = 0;
+    }
+
+    //muda a cor da potlrona para vermelho e
+    //adiciona ou remove o assento à compra
+    function setColor(element){
+        if (element.color == "#ffffff") {
+            element.color = "#ff0000";
+            screen3.tickets++;
+            screen3.seats.push(element.id);
+            seatBG.width += 18;
+        }
+        else if (element.color == "#ff0000") {
+            element.color = "#ffffff";
+            screen3.tickets--;
+            screen3.seats.splice(screen3.seats.indexOf(element.id),1);
+            seatBG.width -= 18;
+        }
+        screen3.updateSeats();
+    }
+
+    //devolve a lista de assentos como uma string
+    function getSeatsAsString() {
+        var boughtSeats = "";
+        for (var i in screen3.seats)
+            boughtSeats += screen3.seats[i] + " ";
+        return boughtSeats.slice(0,-1);
+    }
+
 
     Rectangle {
         id: auditorium
@@ -13,43 +57,6 @@ Rectangle {
         height: parent.height
         color: Qt.rgba(0, 0, 0, 0)
         anchors.horizontalCenter: parent.horizontalCenter
-        property int tickets: 0
-        property var seats: []
-
-        //sorteia ocupação de uma poltrona
-        function raffleColor() {
-            if (Math.random() > 0.65)
-                return "#999999";
-            return "white";
-        }
-
-        function updateSeats() {
-            var boughtSeats = "";
-            for(var i in auditorium.seats) {
-                boughtSeats += auditorium.seats[i] + " ";
-            }
-            seatsText.text = boughtSeats.slice(0,-1);
-            wholeTicket.value = auditorium.tickets;
-            halfTicket.value = 0;
-        }
-
-        //muda a cor da potlrona para vermelho e
-        //adiciona ou remove o assento à compra
-        function setColor(element){
-            if (element.color == "#ffffff") {
-                element.color = "#ff0000";
-                auditorium.tickets++;
-                auditorium.seats.push(element.id);
-                seatBG.width += 18;
-            }
-            else if (element.color == "#ff0000") {
-                element.color = "#ffffff";
-                auditorium.tickets--;
-                auditorium.seats.splice(auditorium.seats.indexOf(element.id),1);
-                seatBG.width -= 18;
-            }
-            auditorium.updateSeats();
-        }
 
         //imagem de fundo do auditório
         Image {
@@ -88,13 +95,13 @@ Rectangle {
                         height: auditorium.width/16
                         border.width: 2
                         border.color: "#246B7D"
-                        color: auditorium.raffleColor();
+                        color: screen3.raffleColor();
                         property string id: leftTheater.setSeatID();
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: "PointingHandCursor"
                             onClicked: {
-                                auditorium.setColor(parent);
+                                screen3.setColor(parent);
                                 console.log("poltrona:", parent.id);
                             }
                         }
@@ -120,13 +127,13 @@ Rectangle {
                         height: auditorium.width/16
                         border.width: 2
                         border.color: "#246B7D"
-                        color: auditorium.raffleColor();
+                        color: screen3.raffleColor();
                         property string id: midTheater.setSeatID();
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: "PointingHandCursor"
                             onClicked: {
-                                auditorium.setColor(parent);
+                                screen3.setColor(parent);
                                 console.log("poltrona:", parent.id);
                             }
                         }
@@ -152,13 +159,13 @@ Rectangle {
                         height: auditorium.width/16
                         border.width: 2
                         border.color: "#246B7D"
-                        color: auditorium.raffleColor();
+                        color: screen3.raffleColor();
                         property string id: rightTheater.setSeatID();
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: "PointingHandCursor"
                             onClicked: {
-                                auditorium.setColor(parent);
+                                screen3.setColor(parent);
                                 console.log("poltrona:", parent.id);
                             }
                         }
@@ -194,7 +201,7 @@ Rectangle {
                         anchors.fill: parent
                         cursorShape: "PointingHandCursor"
                         onClicked: {
-                            auditorium.setColor(parent);
+                            screen3.setColor(parent);
                             console.log("poltrona:", parent.id);
                         }
                     }
@@ -265,7 +272,7 @@ Rectangle {
                 Row {
                     Text { text: "Ingressos: "; anchors.verticalCenter: parent.verticalCenter}
                     Rectangle { width: 30; height: 15; color: "white"; radius: 4
-                        Text { text: auditorium.tickets; anchors.centerIn: parent }
+                        Text { text: screen3.tickets; anchors.centerIn: parent }
                     }
                 }
                 Row {
@@ -282,13 +289,13 @@ Rectangle {
                 spacing: 5
 
                 function calculateHalfAndWhole() {
-                    if (wholeTicket.value + halfTicket.value > auditorium.tickets) {
+                    if (wholeTicket.value + halfTicket.value > screen3.tickets) {
                         if (wholeTicket.value > halfTicket.value)
                             wholeTicket.value--;
                         else
                             halfTicket.value--;
                     }
-                    else if (wholeTicket.value + halfTicket.value < auditorium.tickets) {
+                    else if (wholeTicket.value + halfTicket.value < screen3.tickets) {
                         wtt.color = "red";
                         htt.color = "red";
                     }
@@ -297,6 +304,7 @@ Rectangle {
                         htt.color = "black";
                         var surmount = wholeTicket.value * 20 + halfTicket.value * 10;
                         totalCost.text = "R$ " + surmount;
+                        screen3.total = surmount;
                     }
                 }
 
@@ -305,7 +313,7 @@ Rectangle {
                     Text { id: wtt; text: "Inteira: "; anchors.verticalCenter: parent.verticalCenter}
                     SpinBox {
                         id: wholeTicket
-                        maximumValue: auditorium.tickets
+                        maximumValue: screen3.tickets
                         activeFocusOnPress: false
                         onValueChanged: purchase.calculateHalfAndWhole();
                     }
@@ -314,7 +322,7 @@ Rectangle {
                     Text { id: htt; text: "Meia: "; anchors.verticalCenter: parent.verticalCenter }
                     SpinBox {
                         id: halfTicket
-                        maximumValue: auditorium.tickets
+                        maximumValue: screen3.tickets
                         activeFocusOnPress: false
                         onValueChanged: purchase.calculateHalfAndWhole();
 
